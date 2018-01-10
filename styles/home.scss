@@ -1,3 +1,90 @@
-h1 {
-  color: tomato;
+// Color Theme: https://color.adobe.com/cloud/aHR0cHM6Ly9jYy1hcGktYXNzZXRzLmFkb2JlLmlv/library/cb2905c6-dc9c-46fb-91f5-a1a04f68b20a/theme/447653cd-ce64-4fe7-a481-222430d01d20/
+
+body {
+	background: #3F3347;
+  color: white;
+	font-family: 'Avenir Next', 'Avenir', sans-serif;
+	margin: 0;
+}
+
+.chatbar {
+	bottom: 0;
+	background: rgba(0,0,0,0.3);
+	display: flex;
+	left: 0;
+	padding: 40px 5%;
+	position: fixed;
+	right: 0;
+}
+
+.chatbar-message,
+.chatbar-username {
+	background: rgba(0,0,0,0.3);
+	border: none;
+	border: 2px solid black;
+	display: block;
+	height: 40px;
+	line-height: 40px;
+	margin: 0;
+	padding: 5px 15px;
+	color: white;
+	font-size: 1em;
+	&::placeholder {
+		color: lightgrey;
+	}
+	&:first-of-type {
+		border-right: none;
+	}
+}
+
+.chatbar-message {
+	flex: 8;
+}
+
+.chatbar-username {
+	flex: 2;
+}
+
+.message {
+	display: flex;
+	padding: 5px;
+}
+
+.message.system {
+	flex-direction: column;
+	font-style: italic;
+	padding: 5px 20px;
+}
+
+.message-content,
+.message-username {
+	margin: 5px;
+	padding: 0 10px;
+}
+
+.message-content {
+	flex: 8;
+}
+
+.message-username {
+	flex: 2;
+	font-weight: 700;
+}
+
+.navbar {
+	background: #904D57;
+	border-bottom: 2px solid white;
+	padding: 15px 2em;
+}
+
+.navbar-brand {
+	color: inherit;
+	font-weight: 700;
+	font-size: 28px;
+	line-height: 60px;
+	padding: 0;
+	text-decoration: none;
+	&:hover {
+		border-bottom: 2px solid white;
+	}
 }
