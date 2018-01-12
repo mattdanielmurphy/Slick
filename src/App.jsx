@@ -1,39 +1,16 @@
-import React, {Component} from 'react';
-import MessageList from './MessageList.jsx';
-import ChatBar from './ChatBar.jsx';
-
+import React, {Component} from 'react'
+import MessageList from './MessageList.jsx'
+import ChatBar from './ChatBar.jsx'
+// import WebSocket from 'ws'
 
 class App extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      currentUser: {name: 'Bob'}, // optional. if currentUser is not defined, it means the user is Anonymous
-      messages: [
-        {
-          id: 0,
-          username: 'Bob',
-          content: 'Has anyone seen my marbles?'
-        },
-        {
-          id: 1,
-          username: 'Anonymous',
-          content: 'No, I think you lost them. You lost your marbles Bob. You lost them for good.'
-        }
-      ]
+      currentUser: {name: 'Anonymo 0'},
+      messages: []
     }
-  }
-  componentDidMount() {
-    setTimeout(() => {
-      // Add new msg to list in data store
-      const newMessage = {
-        id:2,
-        username: 'Michelle',
-        content: '\'Ello mates!'
-      };
-      const messages = this.state.messages.concat(newMessage);
-      this.setState({ messages: messages });
-    }, 3000);
   }
 
   render() {
@@ -43,9 +20,50 @@ class App extends Component {
           <a href='/' className='navbar-brand'>Chatty</a>
         </nav>
         <MessageList messages={this.state.messages}/>
-        <ChatBar username={this.state.currentUser.name}/>
+        <ChatBar
+          sendMessage={this.sendMessage}
+          username={this.state.currentUser.name}
+          setUsername={this.setUsername}
+        />
       </div>
-    );
+    )
+  }
+
+  componentDidMount() {
+    // Connect to websocket server
+    this.socket = new WebSocket('ws://localhost:3001')
+    // Get messages upon connecting to server
+    this.socket.onopen = e => {
+      this.getMessagesFromServer()
+    }
+  }
+
+  sendMessage = (username, content) => {
+    const message = { username, content }
+    // Send stringified message object to server
+    this.socket.send(JSON.stringify(message))
+    getMessagesFromServer()
+  }
+
+  setUsername = name => {
+    if (name) {
+      const currentUser = { name }
+      this.setState({ currentUser })
+    }
+  }
+
+  getMessagesFromServer() {
+    this.socket.onmessage = e => {
+      // Parse strinified message object from server
+      const msg = JSON.parse(e.data)
+      // Append message object to messages array
+      const messages = this.state.messages.concat(msg)
+      this.setState({messages})
+    }
+  }
+
+  componentWillUnmount() {
+    this.socket.close()
   }
 }
-export default App;
+export default App
