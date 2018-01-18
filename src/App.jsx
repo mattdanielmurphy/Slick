@@ -11,7 +11,7 @@ class App extends Component {
       oldUsername: null,
       currentUser: {name: 'Anonymo 0'},
       messages: [],
-      connectedUsers: null
+      connectedUsers: 0
     }
   }
 
@@ -21,7 +21,7 @@ class App extends Component {
         <nav className='navbar'>
           <a href='/' className='navbar-brand'>Chatty</a>
           <span className='connectedUsers'>
-            {this.state.connectedUsers} user/s currently connected
+            {this.connectedUsers()}
           </span>
         </nav>
         <MessageList
@@ -34,6 +34,15 @@ class App extends Component {
         />
       </div>
     )
+  }
+
+  connectedUsers() {
+    const users = this.state.connectedUsers
+    if (users > 1) {
+      return `${users} users currently connected`
+    } else {
+      return `Just you are here ;(`
+    }
   }
 
   componentDidMount() {
@@ -70,6 +79,11 @@ class App extends Component {
     this.socket.onmessage = e => {
       // Parse strinified message object from server
       const msg = JSON.parse(e.data)
+
+      // Check if message or number of connected users
+      // Note: This implementation isn't the greatest,
+      // but I'm extremely limited on time right now.
+
       if ( Number.isInteger(msg) ) {
         const connectedUsers = msg
         this.setState({ connectedUsers })
@@ -79,6 +93,7 @@ class App extends Component {
 
         // Append message object to messages array
         const messages = this.state.messages.concat(msg)
+
         this.setState({messages})
       }
     }

@@ -21,7 +21,7 @@ body {
 	background: rgba(0,0,0,0.3);
 	display: flex;
 	left: 0;
-	padding: 40px 5%;
+	padding: 20px 5%;
 	position: fixed;
 	right: 0;
 }
@@ -63,6 +63,11 @@ body {
 	flex-direction: column;
 	font-style: italic;
 	padding: 5px 20px;
+	position: absolute;
+	overflow-y: scroll;
+	bottom: 100px;
+	top: 100px;
+	width: 100%;
 }
 
 .message-content,

@@ -2,12 +2,6 @@ import React, {Component} from 'react'
 
 class Message extends Component {
 
-	usernameChange() {
-		if (this.props.oldUsername) {
-			return `${this.props.oldUsername} has changed their name to ${this.props.username}`
-		}
-	}
-
 	render() {
 		return (
 			<div>
@@ -22,6 +16,13 @@ class Message extends Component {
 				</div>
 			</div>
 		)
+	}
+
+	// display notification if user changed their name
+	usernameChange() {
+		if (this.props.oldUsername) {
+			return `${this.props.oldUsername} has changed their name to ${this.props.username}`
+		}
 	}
 }
 export default Message
