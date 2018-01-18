@@ -8,8 +8,10 @@ class App extends Component {
     super(props)
 
     this.state = {
+      oldUsername: null,
       currentUser: {name: 'Anonymo 0'},
-      messages: []
+      messages: [],
+      connectedUsers: null
     }
   }
 
@@ -18,11 +20,16 @@ class App extends Component {
       <div>
         <nav className='navbar'>
           <a href='/' className='navbar-brand'>Chatty</a>
+          <span className='connectedUsers'>
+            {this.state.connectedUsers} user/s currently connected
+          </span>
         </nav>
-        <MessageList messages={this.state.messages}/>
+        <MessageList
+          messages={this.state.messages}/>
         <ChatBar
           sendMessage={this.sendMessage}
           username={this.state.currentUser.name}
+          oldUsername={this.state.oldUsername}
           setUsername={this.setUsername}
         />
       </div>
@@ -39,15 +46,22 @@ class App extends Component {
   }
 
   sendMessage = (username, content) => {
-    const message = { username, content }
+    const oldUsername = this.state.oldUsername
+    const message = {
+      oldUsername, username, content }
+
     // Send stringified message object to server
     this.socket.send(JSON.stringify(message))
     getMessagesFromServer()
   }
 
-  setUsername = name => {
-    if (name) {
-      const currentUser = { name }
+  setUsername = (oldUsername, newUsername) => {
+    // Need to check if old because is called multiple times
+    if (newUsername) {
+      if (newUsername !== oldUsername) {
+        this.setState({ oldUsername })
+      }
+      const currentUser = { name: newUsername }
       this.setState({ currentUser })
     }
   }
@@ -56,9 +70,17 @@ class App extends Component {
     this.socket.onmessage = e => {
       // Parse strinified message object from server
       const msg = JSON.parse(e.data)
-      // Append message object to messages array
-      const messages = this.state.messages.concat(msg)
-      this.setState({messages})
+      if ( Number.isInteger(msg) ) {
+        const connectedUsers = msg
+        this.setState({ connectedUsers })
+      } else {
+        const oldUsername = null
+        this.setState({oldUsername})
+
+        // Append message object to messages array
+        const messages = this.state.messages.concat(msg)
+        this.setState({messages})
+      }
     }
   }
 

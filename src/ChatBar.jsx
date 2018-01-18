@@ -7,7 +7,7 @@ class ChatBar extends Component {
 
 		this.state = {
 			message: '',
-			username: ''
+			username: this.props.username
 		}
 	}
 
@@ -51,21 +51,14 @@ class ChatBar extends Component {
 	}
 
 	setUsername = e => {
+		// Check if username or anonymous
 		if (this.state.username) {
 			// Set new username to pink to indicate change
 			e.target.style.color = 'pink'
-			this.props.setUsername(this.state.username)
+			this.props.setUsername(this.props.username, this.state.username)
 		} else {
-			this.props.setUsername('Anonymo 0')
+			this.props.setUsername('Anonymo 0', this.state.username)
 		}
-	}
-
-	setUsernameOnBlur = e => {
-		// Add blur event listener
-		e.target.addEventListener('blur', e => {
-			this.setUsername(e)
-			// Don't focus on input
-		}, false)
 	}
 
 
