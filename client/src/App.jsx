@@ -19,7 +19,7 @@ class App extends Component {
     return (
       <div>
         <nav className='navbar'>
-          <a href='/' className='navbar-brand'>Chatty</a>
+          <a href='/' className='navbar-brand'>Slick</a>
           <span className='connectedUsers'>
             {this.connectedUsers()}
           </span>

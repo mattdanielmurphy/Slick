@@ -3,8 +3,13 @@
 Multi-user webchat app made with React, Webpack, Node-Sass, Babel, and SockJS.
 
 ## Dependencies
+### Client
 - WebSockets
 - React
+
+### Server
+- UUID
+- Express
 
 ## Dev Dependencies
 - babel-core: 6.23.1+
