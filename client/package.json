@@ -1,14 +1,14 @@
 {
-  "name": "react-simple-boilerplate",
+  "name": "Slick",
   "version": "1.0.0",
-  "description": "Simple and lightweight Boilerplate for ReactJS projects",
+  "description": "Real-time web chat app",
   "scripts": {
     "lint": "eslint --ext .jsx,.js src",
     "start": "concurrently \"nodemon server.js\" \"react-devtools\""
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/mattdanielmurphy/chatty.git"
+    "url": "https://github.com/mattdanielmurphy/slick.git"
   },
   "keywords": [
     "react",
@@ -19,12 +19,9 @@
     "edit",
     "webpack"
   ],
-  "author": "Noah-Jerome Lotzer <n.lotzer@neusta.de>",
+  "author": "Matthew Daniel Murphy",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/noahlotzer/react-simple-boilerplate/issues"
-  },
-  "homepage": "https://github.com/noahlotzer/react-simple-boilerplate",
+  "homepage": "https://github.com/mattdanielmurphy/Slick",
   "engines": {
     "node": ">=6.0.0"
   },
